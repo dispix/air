@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Air</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+  <!-- Default CSS -->
+  <link href="/css/default.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <div class="container-fluid" role="navigation">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" id="indexButton" class="active" onclick="showIndex()"><a>Air Humide</a></li>
+      <li role="presentation" id="puissanceButton" onclick="showPuissance()"><a>Puissance</a></li>
+      <li role="presentation" id="mixButton" onclick="showMix()"><a>Mélange</a></li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+
+  <div id="tab-1">
+    <div class="headers">
+      <h1 class="text-center">Calcul de l'air humide</h1>
+    </div>
+    <div class="headers">
+      <h2>Données</h2>
+    </div>
+    <div id="entries">
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Température</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputA" type="number" id="temp" placeholder="°C">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Hygrométrie</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputA" type="number" id="hygro" placeholder="%">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Pression atm</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputA" type="number" id="patm" placeholder="101300 Pa">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <button id="calculA" class="btn btn-lg btn-primary" onclick="calculA()">Calcul</button>
+      </div>
+    </div>
+    <!-- entries -->
+    <div class="grid" id="gridA" style="display: none;">
+      <div class="row col-md-12">
+        <div class="page-headers">
+          <h2>Résultats <button class="btn btn-sm btn-primary" id="save" onclick="saveA()">Sauvegarde</button></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="resultsA" class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Température</th>
+                <th>Hygrométrie</th>
+                <th>Pvs</th>
+                <th>Pv</th>
+                <th>x</th>
+                <th>h</th>
+                <th>v</th>
+                <th>tr</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="resultRowA">
+                <td id="resultTemp" class="col-md-1"></td>
+                <td id="resultHygro" class="col-md-1"></td>
+                <td id="resultPvs" class="col-md-1"></td>
+                <td id="resultPv" class="col-md-1"></td>
+                <td id="resultX" class="col-md-1"></td>
+                <td id="resultH" class="col-md-1"></td>
+                <td id="resultV" class="col-md-1"></td>
+                <td id="resultTr" class="col-md-1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Row -->
+      <div id="saveDivA" style="display: none;">
+        <div class="headers">
+          <h2>Sauvegardes <button class="btn btn-sm btn-primary" id="ExportA" onclick="$('#saveTableA').toCsv()">Export</button></h2>
+        </div>
+        <table class="table col-md-12" id="saveTableA">
+          <thead>
+            <tr>
+              <th class="col-md-1">Température</th>
+              <th class="col-md-1">Hygrométrie</th>
+              <th class="col-md-1">Pvs</th>
+              <th class="col-md-1">Pv</th>
+              <th class="col-md-1">x</th>
+              <th class="col-md-1">h</th>
+              <th class="col-md-1">v</th>
+              <th class="col-md-1">tr</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- Row -->
+    </div>
+    <!-- Grid -->
+  </div>
+  <!-- tab-1 -->
+
+  <div id="tab-2" style="display: none;">
+    <div class="headers">
+      <h1 class="text-center">Calcul de puissance</h1>
+    </div>
+    <div class="headers">
+      <h2>Données</h2>
+    </div>
+    <div id="entries">
+      <div class="col-sm-4 col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Entrée</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputP" type="number" id="itemp" placeholder="°C"><span>Température</span>
+            <br />
+            <input class="inputP" type="number" id="ihygr" placeholder="%"><span>Hygrométrie</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sortie</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputP" type="number" id="otemp" placeholder="°C"><span>Température</span>
+            <div class="input-group">
+              <input class="inputP" type="number" id="ohygr" placeholder="%" style="display: none;">
+              <button id="showOhygr" onclick="showOhygr()"><span id="showSpan" class="glyphicon glyphicon-tint" aria-hidden="true"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Débit de soufflage</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputP" type="number" id="debit" placeholder="m3/h">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-1 col-md-2">
+        <button id="calculP" class="btn btn-lg btn-primary" onclick="calculP()">Calcul</button>
+      </div>
+    </div>
+    <!-- entries -->
+    <div class="grid" id="gridP" style="display: none;">
+      <div class="row col-md-12">
+        <div class="page-headers">
+          <h2>Résultats <button class="btn btn-sm btn-primary" onclick="saveP()">Sauvegarde</button></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="resultsP" class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-md-1">Entrée</th>
+                <th class="col-md-1">Sortie</th>
+                <th class="col-md-1">Puissance</th>
+                <th class="col-md-1">Puissance sensible</th>
+                <th class="col-md-1">Puissance latente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="resultRowP">
+                <td id="input" class="col-md-1"></td>
+                <td id="output" class="col-md-1"></td>
+                <td id="tP" class="col-md-1"></td>
+                <td id="sP" class="col-md-1"></td>
+                <td id="lP" class="col-md-1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Row -->
+      <div id="saveDivP" style="display: none;">
+        <div class="headers">
+          <h2>Sauvegardes <button class="btn btn-sm btn-primary" id="ExportP" onclick="$('#saveTableP').toCsv()">Export</button></h2>
+        </div>
+        <table class="table col-md-12" id="saveTableP">
+          <thead>
+            <tr>
+              <th class="col-md-1">Entrée</th>
+              <th class="col-md-1">Sortie</th>
+              <th class="col-md-1">Puissance</th>
+              <th class="col-md-1">Puissance sensible</th>
+              <th class="col-md-1">Puissance latente</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- Row -->
+    </div>
+    <!-- Grid -->
+  </div>
+  <!-- tab-2 -->
+
+  <div id="tab-3" style="display: none;">
+    <div class="headers">
+      <h1 class="text-center">Mélange d'airs</h1>
+    </div>
+    <div class="headers">
+      <h2>Données</h2>
+    </div>
+    <div id="entries">
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Air primaire</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputM" type="number" id="primT" placeholder="°C"><span>Température</span>
+            <br />
+            <input class="inputM" type="number" id="primH" placeholder="%"><span>Hygrométrie</span>
+            <br />
+            <input class="inputM" type="number" id="primQ" placeholder="m3/h"><span>Débit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Air secondaire</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputM" type="number" id="secT" placeholder="°C"><span>Température</span>
+            <br />
+            <input class="inputM" type="number" id="secH" placeholder="%"><span>Hygrométrie</span>
+            <br />
+            <input class="inputM" type="number" id="secQ" placeholder="m3/h"><span>Débit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Pression atm</h3>
+          </div>
+          <div class="panel-body">
+            <input class="inputM" type="number" id="patm" placeholder="101300 Pa">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <button id="calculM" class="btn btn-lg btn-primary" onclick="calculM()">Calcul</button>
+      </div>
+    </div>
+    <!-- entries -->
+    <div class="grid" id="gridM" style="display: none;">
+      <div class="row col-md-12">
+        <div class="page-headers">
+          <h2>Résultats <button class="btn btn-sm btn-primary" id="save" onclick="saveM()">Sauvegarde</button></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="resultsM" class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Débit total</th>
+                <th>Température</th>
+                <th>Hygrométrie</th>
+                <th>Pvs</th>
+                <th>Pv</th>
+                <th>x</th>
+                <th>h</th>
+                <th>v</th>
+                <th>tr</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="resultRowM">
+                <td id="mixResultQv" class="col-md-1"></td>
+                <td id="mixResultTemp" class="col-md-1"></td>
+                <td id="mixResultHygro" class="col-md-1"></td>
+                <td id="mixResultPvs" class="col-md-1"></td>
+                <td id="mixResultPv" class="col-md-1"></td>
+                <td id="mixResultX" class="col-md-1"></td>
+                <td id="mixResultH" class="col-md-1"></td>
+                <td id="mixResultV" class="col-md-1"></td>
+                <td id="mixResultTr" class="col-md-1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Row -->
+      <div id="saveDivM" style="display: none;">
+        <div class="headers">
+          <h2>Sauvegardes <button class="btn btn-sm btn-primary" id="ExportM" onclick="$('#saveTableM').toCsv()">Export</button></h2>
+        </div>
+        <table class="table col-md-12" id="saveTableM">
+          <thead>
+            <tr>
+              <th class="col-md-1">Débit Total</th>
+              <th class="col-md-1">Température</th>
+              <th class="col-md-1">Hygrométrie</th>
+              <th class="col-md-1">Pvs</th>
+              <th class="col-md-1">Pv</th>
+              <th class="col-md-1">x</th>
+              <th class="col-md-1">h</th>
+              <th class="col-md-1">v</th>
+              <th class="col-md-1">tr</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- Row -->
+    </div>
+    <!-- Grid -->
+  </div>
+  <!-- tab-2 -->
+
+  <!-- Calcul script -->
+  <script type="text/javascript" src="script.js"></script>
+
+  <!-- Export script -->
+  <script type="text/javascript" src="toCsv.js"></script>
+</body>
+
+</html>

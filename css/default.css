@@ -1,0 +1,46 @@
+h1, h2 {
+    margin: 10px;
+}
+
+#resultsA, #resultsP {
+    font-size: 120%;
+}
+
+#saveTableA, #saveTableP {
+    font-size:100%;
+}
+
+#saveTableA tbody tr:hover {
+	background-color: #FFB2B2;
+}
+
+#saveTableP tbody tr:hover {
+	background-color: #FFB2B2;
+}
+
+#saveTableM tbody tr:hover {
+	background-color: #FFB2B2;
+}
+
+#showOhygr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 5px;
+}
+
+input {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: 5px;
+}
+
+.container-fluid {
+    margin-top: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
